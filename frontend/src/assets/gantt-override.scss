@@ -1,0 +1,129 @@
+.g-gantt-chart {
+  flex-shrink: 0;
+}
+
+.g-timeaxis {
+  z-index: 200;
+  max-height: 75px;
+}
+
+.vertical-line {
+  z-index: 101;
+}
+
+.g-gantt-wrapper {
+  z-index: 201 !important;
+}
+
+.g-gantt-bar {
+  cursor: pointer
+}
+
+/* ここからデザイン調整向けのCSS追加 */
+#gantt-proxy-wrapper, #gantt-all-view {
+  height: calc(100% - 120px);
+  width: 100%;
+  overflow: hidden;
+}
+
+.gantt-facility-wrapper {
+  min-height: 300px;
+  max-height: 60%;
+}
+
+/* Hrの分だけ高さを減らす */
+.gantt-facility-pile-ups-wrapper {
+  min-height: 100px;
+}
+
+.full-max-height {
+  max-height: 100% !important;
+}
+
+.gantt-wrapper {
+  height: 100%;
+  scrollbar-width: none; /*Firefox対応のスクロールバー非表示コード*/
+  -ms-overflow-style: none; /*Internet Explore対応のスクロールバー非表示コード*/
+}
+
+.gantt-wrapper::-webkit-scrollbar {
+  display: none; /*Google Chrome、Safari、Microsoft Edge対応のスクロールバー非表示コード*/
+}
+
+/* サイドメニュー */
+.g-gantt-wrapper {
+  overflow-y: scroll !important;
+  flex-shrink: 0;
+  scrollbar-width: none; /*Firefox対応のスクロールバー非表示コード*/
+  -ms-overflow-style: none; /*Internet Explore対応のスクロールバー非表示コード*/
+}
+
+.g-gantt-wrapper::-webkit-scrollbar {
+  display: none; /*Google Chrome、Safari、Microsoft Edge対応のスクロールバー非表示コード*/
+}
+
+.g-gantt-chart {
+  scrollbar-width: none; /*Firefox対応のスクロールバー非表示コード*/
+  -ms-overflow-style: none; /*Internet Explore対応のスクロールバー非表示コード*/
+}
+
+.g-gantt-chart::-webkit-scrollbar {
+  display: none; /*Google Chrome、Safari、Microsoft Edge対応のスクロールバー非表示コード*/
+}
+
+.side-menu-header {
+  top: 0;
+  position: sticky;
+  z-index: 300;
+  background-color: red;
+}
+
+/* チャート本体 */
+.g-gantt-chart {
+  flex-shrink: 0;
+}
+
+#gantt-all-view .g-gantt-bar-label {
+  padding: 0
+}
+
+#gantt-proxy-wrapper .g-gantt-bar-label {
+  padding: 0
+}
+
+.g-timeunit {
+  font-size: 90% !important;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+  text-decoration: none;
+}
+
+/* 1番目、4番目、7番目... の要素 */
+#gantt-all-view.withFilter .g-gantt-row-bars-container .g-gantt-bar:nth-child(3n+1),
+.g-gantt-row.unit-closed .g-gantt-row-bars-container .g-gantt-bar:nth-child(3n+1) {
+  top: 0 !important;
+  height: 33% !important;
+}
+
+/* 2番目、5番目、8番目... の要素 */
+#gantt-all-view.withFilter .g-gantt-row-bars-container .g-gantt-bar:nth-child(3n+2),
+.g-gantt-row.unit-closed .g-gantt-row-bars-container .g-gantt-bar:nth-child(3n+2) {
+  top: 33% !important;
+  height: 33% !important;
+}
+
+/* 3番目、6番目、9番目... の要素 */
+#gantt-all-view.withFilter .g-gantt-row-bars-container .g-gantt-bar:nth-child(3n),
+.g-gantt-row.unit-closed .g-gantt-row-bars-container .g-gantt-bar:nth-child(3n) {
+  top: 66% !important;
+  height: 33% !important;
+}
+
+.g-gantt-bar-edit-input {
+  width: 100%;
+  padding: 0;
+}

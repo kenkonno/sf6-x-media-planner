@@ -1,0 +1,233 @@
+openapi: 3.0.0
+x-stoplight:
+  id: 58n4s4t3newwe
+info:
+  title: GanttChartApi
+  version: '1.0'
+  description: ''
+paths:
+
+
+  /api/users:
+    get:
+      summary: GetUsers
+      tags: [ ]
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUsersResponse'
+              examples: { }
+      operationId: get-users
+      description: ''
+      parameters: [ ]
+    post:
+      summary: PostUsers
+      operationId: post-users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostUsersResponse'
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUsersRequest'
+    parameters: [ ]
+
+  /api/users/{id}:
+    parameters:
+      - schema:
+          type: number
+        name: id
+        in: path
+        required: true
+    get:
+      summary: GetUsersId
+      tags: [ ]
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUsersIdResponse'
+              examples: { }
+      operationId: get-users-id
+      description: ''
+    delete:
+      summary: DeleteUsersId
+      operationId: delete-users-id
+      responses:
+        '200':
+          description: OK
+      description: ''
+    post:
+      summary: PostUsersId
+      operationId: post-users-id
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUsersRequest'
+  /api/login:
+    post:
+      summary: PostLogin
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostLoginRequest'
+  /api/logout:
+    post:
+      summary: PostLogout
+      operationId: post-logout
+      responses:
+        '200':
+          description: OK
+
+########## MODELS(components) ###################
+
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: integer
+          nullable: true
+        nickname:
+          type: string
+          x-go-custom-tag: binding:"min=1"
+        email:
+          type: string
+          x-go-custom-tag: binding:"min=1"
+        password:
+          type: string
+          x-go-custom-tag: binding:"min=1"
+        status:
+          type: string
+          x-go-custom-tag: binding:"min=1"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: integer
+          format: int64
+      required:
+        - nickname
+        - email
+        - password
+        - status
+      description: ''
+      x-tags:
+        - User
+    GetUsersRequest:
+      title: GetUsersRequest
+      type: object
+    GetUsersResponse:
+      title: GetUsersResponse
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      required:
+        - list
+    GetUsersIdRequest:
+      title: GetUsersIdRequest
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+    GetUsersIdResponse:
+      title: GetUsersResponse
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    DeleteUsersIdRequest:
+      title: DeleteUsersIdRequest
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+    DeleteUsersIdResponse:
+      title: DeleteUsersIdResponse
+      type: object
+      properties:
+        msg:
+          type: string
+    PostUsersRequest:
+      title: PostUsersRequest
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    PostUsersResponse:
+      title: PostUsersResponse
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    PostUsersIdRequest:
+      title: PostUsersIdRequest
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    PostUsersIdResponse:
+      title: PostUsersIdResponse
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+
+    GetUserInfoResponse:
+      title: GetUserInfoResponse
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+
+    PostLogoutResponse:
+      title: PostLogoutResponse
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+
+    PostLoginRequest:
+      title: PostLoginRequest
+      type: object
+      properties:
+        id:
+          type: string
+        password:
+          type: string
+
+    PostLoginResponse:
+      title: PostLoginResponse
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true

@@ -14,8 +14,10 @@ import ArticleDetail from './components/ArticleDetail.vue';
 @import "tailwindcss";
 
 /* 必要に応じてグローバルなスタイルをここに記述 */
-.prose {
-  /* prose-invertのカスタマイズなど */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #111827; /* bg-gray-900 */
+  color: #f3f4f6; /* text-gray-100 */
 }
 
 .commands span {
@@ -30,7 +32,4 @@ import ArticleDetail from './components/ArticleDetail.vue';
   font-size: 0.9em;
 }
 
-.commands .key-jp {
-  color: #facc15; /* yellow-400 */
-}
 </style>

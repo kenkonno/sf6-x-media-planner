@@ -33,7 +33,6 @@
 import {ref} from "vue";
 import {Api} from "@/api/axios";
 import router from "@/router";
-import ServiceLogo from "@/components/logo/ServiceLogo.vue";
 
 const email = ref("")
 const password = ref("")

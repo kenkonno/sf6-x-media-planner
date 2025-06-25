@@ -18,9 +18,11 @@ import {dateFormat, dateFormatYMD, unixTimeFormat, progressFormat} from "@/utils
 import dayjs from "dayjs";
 import 'dayjs/locale/ja'
 
+
 // locale & 月曜日始まり対応
 dayjs.locale('ja')
 dayjs.Ls.ja.weekStart = 1
+
 
 const vfm = createVfm()
 const app = createApp(App)

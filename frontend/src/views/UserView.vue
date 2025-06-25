@@ -22,7 +22,7 @@
 import AsyncUserTable from "@/components/user/AsyncUserTable.vue";
 import AsyncUserEdit from "@/components/user/AsyncUserEdit.vue";
 import DefaultModal from "@/components/modal/DefaultModal.vue";
-import {useUserTable} from "@/composable/user";
+import {useUserTable} from "@/composables/user";
 
 const {list, refresh} = await useUserTable()
 const closeModalProxy = async () => {

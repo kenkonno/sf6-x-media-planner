@@ -1,17 +1,18 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
-import {loggedIn} from "@/composable/auth";
+import {loggedIn} from "@/composables/auth";
 import {Api} from "@/api/axios";
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/login',
         name: 'login',
-        meta: {title: "+MaP | ログイン", requiresAuth: false},
+        meta: {title: "SF6XMP | ログイン", requiresAuth: false},
         component: () => import('../views/LoginView.vue'),
     },
     {
         path: '/',
         component: () => import('../views/TopPage.vue'),
+        meta: {title: "SF6XMP", requiresAuth: false},
         children: [
             // {
             //     path: '/',
@@ -30,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(),
     routes
 })
 router.beforeEach(async (to, from, next) => {
@@ -52,6 +53,12 @@ router.beforeEach(async (to, from, next) => {
     }
 });
 router.afterEach((to) => {
-    document.title = to.meta.title as string
+    // デフォルトタイトル
+    const defaultTitle = import.meta.env.VITE_APP_TITLE || 'アプリケーション'
+
+    // ルートのmetaからタイトルを取得、なければデフォルト
+    const title = to.meta.title as string || defaultTitle
+    console.log(to, to.meta)
+    document.title = title
 })
 export default router

@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import {useUser, postUserById, postUser, deleteUserById} from "@/composable/user";
+import {useUser, postUserById, postUser, deleteUserById} from "@/composables/user";
 
 interface AsyncUserEdit {
   id: number | undefined

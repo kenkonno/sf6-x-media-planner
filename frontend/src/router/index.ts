@@ -38,7 +38,7 @@ router.beforeEach(async (to, from, next) => {
     const {user} = await loggedIn()
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (user?.id == undefined) {
+        if (user?.email == "") {
             // ログインしていない場合、ログインページへリダイレクトします
             next({
                 path: '/login',

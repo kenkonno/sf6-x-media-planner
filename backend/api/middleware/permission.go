@@ -2,10 +2,6 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/kenkonno/sf6-x-media-planner/backend/api/constants"
-	"github.com/kenkonno/sf6-x-media-planner/backend/repository"
-	"github.com/kenkonno/skelton_generator/dest/repository"
-	"log"
 	"net/http"
 )
 
@@ -96,14 +92,6 @@ var rolesNeeded = map[string][]string{
 	//"POST /api/units/duplicate":       {constants.RoleAdmin, constants.RoleManager},
 }
 
-func getRolesFromToken(c *gin.Context) []string {
-
-	userId := GetUserId(c)
-	userRep := repository.NewUserRepository(GetRepositoryMode(c)...)
-	user := userRep.Find(*userId)
-	return []string{user.Role}
-}
-
 func RoleBasedAccessControl() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
@@ -117,26 +105,6 @@ func RoleBasedAccessControl() gin.HandlerFunc {
 			if noAuthPath == fullPath {
 				c.Next()
 				return
-			}
-		}
-
-		requiredRoles, ok := rolesNeeded[fullPath]
-
-		if !ok {
-			// パスが見つからないときのログ出力をなくし、単純に次の処理へ進む
-			log.Default().Println("パスに対するロールが見つかりません。 " + fullPath)
-			c.Next()
-			return
-		}
-
-		userRoles := getRolesFromToken(c)
-
-		for _, userRole := range userRoles {
-			for _, requiredRole := range requiredRoles {
-				if userRole == requiredRole {
-					c.Next()
-					return
-				}
 			}
 		}
 

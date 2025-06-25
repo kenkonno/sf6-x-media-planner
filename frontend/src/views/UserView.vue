@@ -22,14 +22,11 @@
 import AsyncUserTable from "@/components/user/AsyncUserTable.vue";
 import AsyncUserEdit from "@/components/user/AsyncUserEdit.vue";
 import DefaultModal from "@/components/modal/DefaultModal.vue";
-import {useModalWithId} from "@/composable/modalWIthId";
 import {useUserTable} from "@/composable/user";
 
 const {list, refresh} = await useUserTable()
-const {modalIsOpen, id, openEditModal, closeEditModal} = useModalWithId()
 const closeModalProxy = async () => {
   await refresh()
-  closeEditModal()
 }
 
 </script>

@@ -57,7 +57,7 @@ func (r *Interactor) GetMapping(prefix string, withoutId bool, responseMapping b
 // GetIdInvoke Get With Id
 func (r *Interactor) GetInvoke(structName string) string {
 	template :=
-		`func @Method@@Upper@sInvoke(c *gin.Context) openapi_models.@Method@@Upper@sResponse {
+		`func @Method@@Upper@sInvoke(c *gin.Context) (openapi_models.@Method@@Upper@sResponse, error) {
 	@Lower@Rep := repository.New@Upper@Repository()
 
 	@Lower@List := @Lower@Rep.FindAll()
@@ -69,7 +69,7 @@ func (r *Interactor) GetInvoke(structName string) string {
 			r.GetMapping("item", false, true) + `
 			}
 		}),
-	}
+	}, nil
 }
 `
 	return strings.Replace(RewriteString(template, structName), "@Method@", "Get", -1)
@@ -78,12 +78,12 @@ func (r *Interactor) GetInvoke(structName string) string {
 // GetIdInvoke Get With Id
 func (r *Interactor) GetIdInvoke(structName string) string {
 	template :=
-		`func @Method@@Upper@sIdInvoke(c *gin.Context) openapi_models.@Method@@Upper@sIdResponse {
+		`func @Method@@Upper@sIdInvoke(c *gin.Context) (openapi_models.@Method@@Upper@sIdResponse, error) {
 	@Lower@Rep := repository.New@Upper@Repository()
 
 	var req openapi_models.@Method@@Upper@sIdRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		panic(err)
+		return openapi_models.@Method@@Upper@sIdResponse{}, err
 	}
 
 	@Lower@ := @Lower@Rep.Find(int32(req.Id))
@@ -92,7 +92,7 @@ func (r *Interactor) GetIdInvoke(structName string) string {
 		@Upper@: openapi_models.@Upper@{
 ` + r.GetMapping(ToLowerCamel(structName), false, true) + `
 		},
-	}
+	}, nil
 }
 `
 	return strings.Replace(RewriteString(template, structName), "@Method@", "Get", -1)
@@ -101,20 +101,19 @@ func (r *Interactor) GetIdInvoke(structName string) string {
 
 func (r *Interactor) PostInvoke(structName string) string {
 	template :=
-		`func @Method@@Upper@sInvoke(c *gin.Context) openapi_models.@Method@@Upper@sResponse {
+		`func @Method@@Upper@sInvoke(c *gin.Context) (openapi_models.@Method@@Upper@sResponse, error) {
 
 	@Lower@Rep := repository.New@Upper@Repository()
 
 	var @Lower@Req openapi_models.@Method@@Upper@sRequest
 	if err := c.ShouldBindJSON(&@Lower@Req); err != nil {
-		c.JSON(http.StatusBadRequest, err.Error())
-		panic(err)
+		return openapi_models.@Method@@Upper@sResponse{}, err
 	}
 	@Lower@Rep.Upsert(db.@Upper@{
 ` + r.GetMapping(ToLowerCamel(structName)+"Req."+structName, true, false) + `
 	})
 
-	return openapi_models.@Method@@Upper@sResponse{}
+	return openapi_models.@Method@@Upper@sResponse{}, nil
 
 }
 `
@@ -125,21 +124,20 @@ func (r *Interactor) PostInvoke(structName string) string {
 // GetIdInvoke Get With Id
 func (r *Interactor) PostIdInvoke(structName string) string {
 	template :=
-		`func @Method@@Upper@sIdInvoke(c *gin.Context) openapi_models.@Method@@Upper@sIdResponse {
+		`func @Method@@Upper@sIdInvoke(c *gin.Context) (openapi_models.@Method@@Upper@sIdResponse, error) {
 
 	@Lower@Rep := repository.New@Upper@Repository()
 
 	var @Lower@Req openapi_models.@Method@@Upper@sRequest
 	if err := c.ShouldBindJSON(&@Lower@Req); err != nil {
-		c.JSON(http.StatusBadRequest, err.Error())
-		panic(err)
+		return openapi_models.@Method@@Upper@sIdResponse{}, err
 	}
 
 	@Lower@Rep.Upsert(db.@Upper@{
 ` + r.GetMapping(ToLowerCamel(structName)+"Req."+structName, false, false) + `
 	})
 
-	return openapi_models.@Method@@Upper@sIdResponse{}
+	return openapi_models.@Method@@Upper@sIdResponse{}, nil
 
 }
 
@@ -151,18 +149,18 @@ func (r *Interactor) PostIdInvoke(structName string) string {
 // GetIdInvoke Get With Id
 func (r *Interactor) DeleteIdInvoke(structName string) string {
 	template :=
-		`func @Method@@Upper@sIdInvoke(c *gin.Context) openapi_models.@Method@@Upper@sIdResponse {
+		`func @Method@@Upper@sIdInvoke(c *gin.Context) (openapi_models.@Method@@Upper@sIdResponse, error) {
 
 	@Lower@Rep := repository.New@Upper@Repository()
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		panic(err)
+		return openapi_models.@Method@@Upper@sIdResponse{}, err
 	}
 
 	@Lower@Rep.Delete(int32(id))
 
-	return openapi_models.@Method@@Upper@sIdResponse{}
+	return openapi_models.@Method@@Upper@sIdResponse{}, nil
 
 }
 `

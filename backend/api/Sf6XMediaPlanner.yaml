@@ -99,6 +99,21 @@ paths:
         '200':
           description: OK
 
+  /api/userInfo:
+    get:
+      summary: GetUserInfo
+      tags: [ ]
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserInfoResponse'
+              examples: { }
+      operationId: get-user-info
+      description: ''
+      parameters: [ ]
 ########## MODELS(components) ###################
 
 components:

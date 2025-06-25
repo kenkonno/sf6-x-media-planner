@@ -1,1 +1,1 @@
-docker-compose up gantt_api
+docker-compose up combo-planner_api

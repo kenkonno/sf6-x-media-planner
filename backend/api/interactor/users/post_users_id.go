@@ -5,18 +5,16 @@ import (
 	"github.com/kenkonno/sf6-x-media-planner/backend/api/openapi_models"
 	"github.com/kenkonno/sf6-x-media-planner/backend/models/db"
 	"github.com/kenkonno/sf6-x-media-planner/backend/repository"
-	"net/http"
 	"time"
 )
 
-func PostUsersIdInvoke(c *gin.Context) openapi_models.PostUsersIdResponse {
+func PostUsersIdInvoke(c *gin.Context) (openapi_models.PostUsersIdResponse, error) {
 
 	userRep := repository.NewUserRepository()
 
 	var userReq openapi_models.PostUsersRequest
 	if err := c.ShouldBindJSON(&userReq); err != nil {
-		c.JSON(http.StatusBadRequest, err.Error())
-		panic(err)
+		return openapi_models.PostUsersIdResponse{}, err
 	}
 
 	userRep.Upsert(db.User{
@@ -29,6 +27,6 @@ func PostUsersIdInvoke(c *gin.Context) openapi_models.PostUsersIdResponse {
 		UpdatedAt: 0,
 	})
 
-	return openapi_models.PostUsersIdResponse{}
+	return openapi_models.PostUsersIdResponse{}, nil
 
 }

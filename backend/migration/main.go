@@ -12,39 +12,7 @@ import (
 var con = connection.GetConnection()
 
 func main() {
-	migrate(db.Department{})
-	migrate(db.Facility{})
-	migrate(db.Holiday{})
-	migrate(db.OperationSetting{})
-	migrate(db.Process{})
-	migrate(db.Unit{})
 	migrate(db.User{})
-	migrate(db.GanttGroup{})
-	migrate(db.TicketUser{})
-	migrate(db.Ticket{})
-	migrate(db.Milestone{})
-	migrate(db.FacilitySharedLink{})
-	migrate(db.SimulationLock{})
-	migrate(db.FacilityWorkSchedule{})
-	migrate(db.FeatureOption{})
-	migrate(db.TicketDailyWeight{})
-
-	// simulation
-	migrate(db.SimulationDepartment{})
-	migrate(db.SimulationFacility{})
-	migrate(db.SimulationHoliday{})
-	migrate(db.SimulationOperationSetting{})
-	migrate(db.SimulationProcess{})
-	migrate(db.SimulationUnit{})
-	migrate(db.SimulationUser{})
-	migrate(db.SimulationGanttGroup{})
-	migrate(db.SimulationTicketUser{})
-	migrate(db.SimulationTicket{})
-	migrate(db.SimulationMilestone{})
-	migrate(db.SimulationFacilitySharedLink{})
-	migrate(db.SimulationFacilityWorkSchedule{})
-	migrate(db.SimulationFeatureOption{})
-	migrate(db.SimulationTicketDailyWeight{})
 
 	createDefaultUser()
 }
@@ -59,14 +27,10 @@ func createDefaultUser() {
 		}
 
 		userRep.Upsert(db.User{
-			DepartmentId:        0,
-			LimitOfOperation:    0,
-			LastName:            "システム",
-			FirstName:           "管理者",
+			Nickname: "システム管理者",
 			Password:            string(hashedPassword),
 			Email:               "admin",
-			Role:                "admin",
-			EmploymentStartDate: time.Time{},
+			Status:   "active",
 			CreatedAt:           time.Time{},
 			UpdatedAt:           0,
 		})

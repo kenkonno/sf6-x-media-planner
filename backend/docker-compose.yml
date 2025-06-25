@@ -13,11 +13,11 @@ services:
       context: .
       dockerfile: ./docker/postgres/Dockerfile
     ports:
-      - "5433:5432"
+      - "6432:5432"
     # postgres 設定
     env_file: .env
     volumes:
-      - dbdata_combo-planner:/var/lib/postgresql/data
+      - dbdata_sf6-x-media-planner:/var/lib/postgresql/data
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:

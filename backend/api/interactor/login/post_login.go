@@ -1,7 +1,6 @@
 package login
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/kenkonno/sf6-x-media-planner/backend/api/middleware"
@@ -38,7 +37,6 @@ func PostLoginInvoke(c *gin.Context) (openapi_models.PostLoginResponse, error) {
 	user := userRep.FindByEmail(userReq.Id) // IDといいつつEmail
 	isAuthenticated = VerifyPassword(userReq.Password, user.Password)
 	userId = user.Id
-	fmt.Println("############################ ", isAuthenticated, middleware.GetRepositoryMode(c))
 
 	if isAuthenticated {
 		sessionId := uuid.New().String()

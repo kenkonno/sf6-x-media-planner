@@ -4,8 +4,6 @@ import (
 	"crypto/tls"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
-	"github.com/kenkonno/sf6-x-media-planner/backend/api/constants"
-	"github.com/kenkonno/sf6-x-media-planner/backend/repository/simulation"
 	"github.com/samber/lo"
 	"net/http"
 	"os"
@@ -95,38 +93,10 @@ func UpdateSessionID(sessionID string, userId int32) {
 	}
 }
 
-func IsGuest(c *gin.Context) bool {
-	userId := GetUserId(c)
-	if userId != nil && *userId == constants.GuestID {
-		return true
-	}
-	return false
-}
 
 func ClearSession(sessionID string) {
 	err := redisClient.Del(sessionID).Err()
 	if err != nil {
 		panic(err)
 	}
-}
-
-// GetRepositoryMode リポジトリーのモードを返却する。ここでやらないほうがいいかも？
-func GetRepositoryMode(c *gin.Context) []string {
-	// このキャッシュは１リクエスト間で有効
-	cache, exists := c.Get("repository_mode")
-	if exists {
-		return cache.([]string)
-	}
-
-	var result []string
-	if IsGuest(c) {
-		result = append(result, constants.RepositoryModeGuest)
-	}
-	simulationLock := simulation.NewSimulationLock().Find(constants.SimulateTypeSchedule)
-	userId := GetUserId(c)
-	if userId != nil && simulationLock.LockedBy == *userId && simulationLock.Status == constants.SimulateStatusInProgress {
-		result = append(result, constants.RepositoryModeSimulation)
-	}
-	c.Set("repository_mode", result)
-	return result
 }

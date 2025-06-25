@@ -1,6 +1,5 @@
 <template>
   <div class="text-center" style="padding:50px 0">
-    <ServiceLogo :use-image-logo="true"></ServiceLogo>
     <!-- Main Form -->
     <div class="login-form-1">
       <form id="login-form" class="text-left">

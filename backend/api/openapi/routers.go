@@ -72,6 +72,13 @@ var routes = Routes{
 	},
 
 	{
+		"GetUserInfo",
+		http.MethodGet,
+		"/api/userInfo",
+		GetUserInfo,
+	},
+
+	{
 		"GetUsers",
 		http.MethodGet,
 		"/api/users",

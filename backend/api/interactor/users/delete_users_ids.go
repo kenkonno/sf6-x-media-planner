@@ -7,17 +7,17 @@ import (
 	"strconv"
 )
 
-func DeleteUsersIdInvoke(c *gin.Context) openapi_models.DeleteUsersIdResponse {
+func DeleteUsersIdInvoke(c *gin.Context) (openapi_models.DeleteUsersIdResponse, error) {
 
 	userRep := repository.NewUserRepository()
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		panic(err)
+		return openapi_models.DeleteUsersIdResponse{}, err
 	}
 
 	userRep.Delete(int32(id))
 
-	return openapi_models.DeleteUsersIdResponse{}
+	return openapi_models.DeleteUsersIdResponse{}, nil
 
 }

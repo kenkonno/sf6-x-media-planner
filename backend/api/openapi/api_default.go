@@ -10,7 +10,9 @@
 package openapi
 
 import (
+
 	"github.com/kenkonno/sf6-x-media-planner/backend/api/interactor/users"
+	"github.com/kenkonno/sf6-x-media-planner/backend/api/interactor/user_info"
 	"github.com/kenkonno/sf6-x-media-planner/backend/api/interactor/login"
 	"github.com/kenkonno/sf6-x-media-planner/backend/api/interactor/logout"
 
@@ -24,6 +26,16 @@ import (
 func DeleteUsersId(c *gin.Context) {
 	var r openapi_models.DeleteUsersIdResponse
 	r, err := users.DeleteUsersIdInvoke(c)
+	if err != nil {
+	} else {
+		c.JSON(http.StatusOK, r)
+	}
+}
+
+// GetUserInfo - GetUserInfo
+func GetUserInfo(c *gin.Context) {
+	var r openapi_models.GetUserInfoResponse
+	r, err := user_info.GetUserInfoInvoke(c)
 	if err != nil {
 	} else {
 		c.JSON(http.StatusOK, r)
@@ -89,3 +101,4 @@ func PostUsersId(c *gin.Context) {
 		c.JSON(http.StatusOK, r)
 	}
 }
+

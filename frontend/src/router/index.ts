@@ -11,22 +11,33 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/',
-        component: () => import('../views/TopPage.vue'),
-        meta: {title: "SF6XMP", requiresAuth: false},
-        children: [
-            // {
-            //     path: '/',
-            //     name: 'gantt',
-            //     meta: {title: "+MaP | 案件ビュー", requiresAuth: true},
-            //     component: () => import('../views/GanttFacilityView.vue')
-            // },
-            // {
-            //     path: '/all-view',
-            //     name: 'gantt-all-view',
-            //     meta: {title: "+MaP | 全体ビュー", requiresAuth: true},
-            //     component: () => import('../views/GanttAllView.vue')
-            // },
-        ]
+        name: 'home',
+        meta: {title: "SF6XMP Home", requiresAuth: false},
+        component: () => import('../views/HomePage.vue')
+    },
+    {
+        path: '/character-detail',
+        name: 'character-detail',
+        meta: {title: "SF6XMP Character Detail", requiresAuth: false},
+        component: () => import('../views/CharacterDetailPage.vue')
+    },
+    {
+        path: '/search',
+        name: 'search',
+        meta: {title: "SF6XMP Search", requiresAuth: false},
+        component: () => import('../views/SearchPage.vue')
+    },
+    {
+        path: '/my-page',
+        name: 'my-page',
+        meta: {title: "SF6XMP MyPage", requiresAuth: false},
+        component: () => import('../views/MyPage.vue')
+    },
+    {
+        path: '/article-editor',
+        name: 'article-editor',
+        meta: {title: "SF6XMP ArticleEditor", requiresAuth: false},
+        component: () => import('../views/ArticleEditorPage.vue')
     },
 ]
 
